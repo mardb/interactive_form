@@ -4,14 +4,12 @@ This project uses **JavaScript** to enhance an interactive registration form for
 
 I will be adding JavaScript to **HTML** and **CSS** files to make the form  user-friendly.
 ---
-
 ## Features:
 
 - customized and conditional behavior & interactivity
 - Validation for user input
 - Helpful error messages when the user enters invalid information into the form fields.
 ---
-
 ### Accessibility
 
 - This website aims to be accessible to all users-
