@@ -1,5 +1,5 @@
 # Interactive Form
----
+
 This project uses **JavaScript** to enhance an interactive registration form for a fictional Full Stack conference.
 
 I will be adding JavaScript to **HTML** and **CSS** files to make the form  user-friendly.
@@ -8,7 +8,7 @@ I will be adding JavaScript to **HTML** and **CSS** files to make the form  user
 - customized and conditional behavior & interactivity
 - Validation for user input
 - Helpful error messages when the user enters invalid information into the form fields.
----
+
 ### Accessibility
 - This website aims to be accessible to all users-
 - To be in compliance with web regulations.
