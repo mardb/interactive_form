@@ -14,11 +14,14 @@ console.log(designSelect.value)
         jobRole.style.display = 'none'
     }
 })
-
+//selects colors of shirts
 const colorSelect = document.querySelector("#color")
+//selects theme js or puns
 const designSelect = document.querySelector("#design")
-const options = colorSelect.children
-console.log(options);
+const options = document.querySelectorAll('#color option')
+console.log(options)
+// colorSelect.children
+
 
 // console.log(colorSelect)
 // console.log(jsPuns)
@@ -30,16 +33,20 @@ designSelect.addEventListener('change', (e) => {
    colorSelect.removeAttribute('disabled')
    for(let i =0; i < options.length; i++){
        console.log(options[i]);
-       const value = e.target.value;
-       const dataTheme = options[i].getAttribute('')
-       console.log(value);
-       console.log(dataTheme);
+       const targetVal = e.target.value;
+       const dataTheme = options[i].getAttribute('data-theme')
+    //    console.log(targetVal);
+    console.log(dataTheme)
+    
+    //logs the color value
+    //    console.log(dataTheme.attributes[0]);
+    // console.log(dataTheme.getAttribute('data-theme'));
     //    console.log(colorSelect)
-    if( value === dataTheme ){ 
-       option[i].setAttribute('disabled', false)
-       option[i].setAttribute('selected', true)
-        // heartJs[i].setAttribute('disabled', false)
-       }
+    // if( value === dataTheme ){ 
+    //    option[i].setAttribute('disabled', false)
+    //    option[i].setAttribute('selected', true)
+    //     // heartJs[i].setAttribute('disabled', false)
+    //    }
 
    }
 //    if( e.target.value === 'heart js' ){ 
