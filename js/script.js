@@ -1,7 +1,9 @@
 //Use the .focus() method on the <input type="text"> element for the "Name" field.
+//Name Field
 const name = document.querySelector("#name");
 name.focus();
 
+//Job Role
 const jobRole = document.querySelector("#other-job-role");
 const jobSelect = document.querySelector("#title");
 
@@ -14,6 +16,7 @@ jobSelect.addEventListener("change", (e) => {
     jobRole.style.display = "none";
   }
 });
+//T-shirt info
 //selects colors of shirts
 const colorSelect = document.querySelector("#color");
 //selects theme js or puns
@@ -56,3 +59,26 @@ fieldset.addEventListener("change", (e) => {
     activityCost.innerHTML = `Total: $${(totalCost -= cost)}`;
   }
 });
+
+//Payment info
+//selects whole select menu
+const payment = document.querySelector('#payment ')
+//options below
+const cc = document.querySelector('#credit-card')
+console.log(cc);
+const pp = document.querySelector('#paypal')
+console.log(pp.id);
+const btc = document.querySelector('#bitcoin')
+
+pp.style.display= 'none'
+btc.style.display= 'none'
+payment.children[1].setAttribute('selected', true)
+payment.addEventListener('change', (e)=>{
+ e.target.value
+
+})
+
+/*"Payment Info" section
+The credit card payment option should be selected for the user by default. So when the form first loads, "Credit Card" should be displayed in the "I'm going to pay with" <select> element, and the credit card payment section should be the only payment section displayed in the form’s UI. And when the user selects one of the payment options from the "I'm going to pay with" drop down menu, the form should update to display only the chosen payment method section.
+
+Program the "I'm going to pay with" <select> element to listen for user changes. When a change is detected, hide all payment sections in the form’s UI except the selected one.*/ 
