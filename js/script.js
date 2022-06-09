@@ -29,12 +29,30 @@ designSelect.addEventListener("change", (e) => {
     const dataTheme = colorSelect.children[i].getAttribute("data-theme");
 
     if (targetVal === dataTheme) {
-        colorSelect[i].hidden = false;
-        colorSelect[i].select = true;
+      colorSelect[i].hidden = false;
+      colorSelect[i].select = true;
     }
     if (targetVal != dataTheme) {
-        colorSelect[i].hidden = true;
-        colorSelect[i].select = false;
+      colorSelect[i].hidden = true;
+      colorSelect[i].select = false;
     }
+  }
+});
+
+let checkboxes = document.querySelector(".activities input");
+// Total: $
+const activityCost = document.querySelector(".activities-cost");
+//Register for activities aka fieldset
+const fieldset = document.querySelector(".activities");
+let totalCost = 0;
+
+fieldset.addEventListener("change", (e) => {
+  let dataCost = e.target.getAttribute("data-cost");
+  let cost = parseInt(dataCost);
+
+  if (e.target.checked) {
+    activityCost.innerHTML = `Total: $${(totalCost += cost)}`;
+  } else {
+    activityCost.innerHTML = `Total: $${(totalCost -= cost)}`;
   }
 });
