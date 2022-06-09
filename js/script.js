@@ -65,21 +65,31 @@ fieldset.addEventListener("change", (e) => {
 const payment = document.querySelector("#payment ");
 //options below
 const credit = document.querySelector("#credit-card");
-console.log(credit);
+// console.log(credit.id)
 const paypal = document.querySelector("#paypal");
-console.log(paypal.id);
+// console.log(paypal.id);
 const btc = document.querySelector("#bitcoin");
+// console.log(paypal.id);
 
-paypal.style.display = "none";
-btc.style.display = "none";
+paypal.hidden = true;
+btc.hidden = true;
 payment.children[1].setAttribute("selected", true);
+
 payment.addEventListener("change", (e) => {
-    // design some conditional logic inside event listener to show or hide content based on what the selection is. Whichever payment option is selected, should be shown, and the other options should be hidden.try turning the display on or off
-    console.log(e.target.value); 
-// if(e.target.value) {
+  let eventTarget = e.target.value;
+  let paymentOptions = [credit, paypal, btc];
 
-
-// }
+  for (let i = 0; i < paymentOptions.length; i++) {
+    //    console.log(paymentOptions[i].id)
+    if (eventTarget === paymentOptions[i].id) {
+      console.log(eventTarget, paymentOptions[i].id);
+      paymentOptions[i].hidden = false;
+    } else {
+      paymentOptions[i].hidden = true;
+    }
+  }
+  // design some conditional logic inside event listener to show or hide content based on what the selection is. Whichever payment option is selected, should be shown, and the other options should be hidden
+  //So it's as simple as turning the display on or off
 });
 
 /*"Payment Info" section
