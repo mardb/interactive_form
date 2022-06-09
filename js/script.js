@@ -62,23 +62,26 @@ fieldset.addEventListener("change", (e) => {
 
 //Payment info
 //selects whole select menu
-const payment = document.querySelector('#payment ')
+const payment = document.querySelector("#payment ");
 //options below
-const cc = document.querySelector('#credit-card')
-console.log(cc);
-const pp = document.querySelector('#paypal')
+const credit = document.querySelector("#credit-card");
+console.log(credit);
+const paypal = document.querySelector("#paypal");
 console.log(pp.id);
-const btc = document.querySelector('#bitcoin')
+const btc = document.querySelector("#bitcoin");
 
-pp.style.display= 'none'
-btc.style.display= 'none'
-payment.children[1].setAttribute('selected', true)
-payment.addEventListener('change', (e)=>{
- e.target.value
+paypal.style.display = "none";
+btc.style.display = "none";
+payment.children[1].setAttribute("selected", true);
+payment.addEventListener("change", (e) => {
+    // design some conditional logic inside event listener to show or hide content based on what the selection is. Whichever payment option is selected, should be shown, and the other options should be hidden.try turning the display on or off
+if(e.target.value) {
 
-})
+
+}
+});
 
 /*"Payment Info" section
 The credit card payment option should be selected for the user by default. So when the form first loads, "Credit Card" should be displayed in the "I'm going to pay with" <select> element, and the credit card payment section should be the only payment section displayed in the form’s UI. And when the user selects one of the payment options from the "I'm going to pay with" drop down menu, the form should update to display only the chosen payment method section.
 
-Program the "I'm going to pay with" <select> element to listen for user changes. When a change is detected, hide all payment sections in the form’s UI except the selected one.*/ 
+Program the "I'm going to pay with" <select> element to listen for user changes. When a change is detected, hide all payment sections in the form’s UI except the selected one.*/
