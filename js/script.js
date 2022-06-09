@@ -67,7 +67,7 @@ const payment = document.querySelector("#payment ");
 const credit = document.querySelector("#credit-card");
 console.log(credit);
 const paypal = document.querySelector("#paypal");
-console.log(pp.id);
+console.log(paypal.id);
 const btc = document.querySelector("#bitcoin");
 
 paypal.style.display = "none";
@@ -75,10 +75,11 @@ btc.style.display = "none";
 payment.children[1].setAttribute("selected", true);
 payment.addEventListener("change", (e) => {
     // design some conditional logic inside event listener to show or hide content based on what the selection is. Whichever payment option is selected, should be shown, and the other options should be hidden.try turning the display on or off
-if(e.target.value) {
+    console.log(e.target.value); 
+// if(e.target.value) {
 
 
-}
+// }
 });
 
 /*"Payment Info" section
