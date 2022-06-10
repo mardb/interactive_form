@@ -76,5 +76,5 @@ payment.addEventListener("change", (e) => {
     paymentOptions[i].hidden = eventTarget !== paymentOptions[i].id;
   }
 });
-
+// (test)
 
