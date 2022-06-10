@@ -50,26 +50,27 @@ const activityCost = document.querySelector('.activities-cost');
 const fieldset = document.querySelector('.activities');
 let totalCost = 0;
 
-fieldset.addEventListener('change', ({target, target: {checked}}) => {
-  let cost = parseInt(target.getAttribute("data-cost"));
-    activityCost.innerHTML = `Total: $${checked ? (totalCost += cost) : (totalCost -= cost)}`;
+fieldset.addEventListener('change', ({ target, target: { checked } }) => {
+  let cost = parseInt(target.getAttribute('data-cost'));
+  activityCost.innerHTML = `Total: $${
+    checked ? (totalCost += cost) : (totalCost -= cost)
+  }`;
 });
 
 //payment info
 const payments = document.querySelectorAll('.payment-type');
-const paymentType = document.getElementsByTagName('div');
 const paymentElement = document.getElementById('payment');
 let paymentOptions = payments;
-
+//hides credit card
 for (let i = 0; i < paymentOptions.length; i++) {
   payments[i].hidden = i !== 0;
   const paymentOptionValue = paymentElement.children[i].getAttribute('value');
   if (paymentOptionValue === 'credit-card') {
-    payment[i].setAttribute('selected', true);
+    paymentElement[i].setAttribute('selected', true);
   }
 }
-
-payment.addEventListener('change', ({ target: { value } }) => {
+//hides btc, paypal and credit card options
+paymentElement.addEventListener('change', ({ target: { value } }) => {
   for (let i = 0; i < paymentOptions.length; i++) {
     paymentOptions[i].hidden = value !== paymentOptions[i].id;
   }
