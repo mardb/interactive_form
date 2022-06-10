@@ -62,22 +62,18 @@ fieldset.addEventListener("change", (e) => {
 
 const payments = document.querySelectorAll(".payment-type");
 const paymentType = document.getElementsByTagName("div");
+let paymentOptions = payments;
 
 payments[1].hidden = true;
 payments[2].hidden = true;
-
 payment.children[1].setAttribute("selected", true);
 
 payment.addEventListener("change", (e) => {
   let eventTarget = e.target.value;
-  let paymentOptions = payments;
 
   for (let i = 0; i < paymentOptions.length; i++) {
-    if (eventTarget === paymentOptions[i].id) {
-      console.log(eventTarget, paymentOptions[i].id);
-      paymentOptions[i].hidden = false;
-    } else {
-      paymentOptions[i].hidden = true;
-    }
+    paymentOptions[i].hidden = eventTarget !== paymentOptions[i].id;
   }
 });
+
+
