@@ -60,6 +60,7 @@ fieldset.addEventListener("change", (e) => {
   }
 });
 
+//payment info
 const payments = document.querySelectorAll(".payment-type");
 const paymentType = document.getElementsByTagName("div");
 let paymentOptions = payments;
