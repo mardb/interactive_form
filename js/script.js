@@ -1,35 +1,35 @@
 //Use the .focus() method on the <input type="text"> element for the "Name" field.
 //Name Field
-const name = document.querySelector("#name");
+const name = document.querySelector('#name');
 name.focus();
 
 //Job Role
-const jobRole = document.querySelector("#other-job-role");
-const jobSelect = document.querySelector("#title");
+const jobRole = document.querySelector('#other-job-role');
+const jobSelect = document.querySelector('#title');
 
-jobRole.style.display = "none";
-jobSelect.addEventListener("change", (e) => {
+jobRole.style.display = 'none';
+jobSelect.addEventListener('change', (e) => {
   console.log(designSelect.value);
-  if (e.target.value === "other") {
-    jobRole.style.display = "block";
+  if (e.target.value === 'other') {
+    jobRole.style.display = 'block';
   } else {
-    jobRole.style.display = "none";
+    jobRole.style.display = 'none';
   }
 });
 //T-shirt info
 //selects colors of shirts
-const colorSelect = document.querySelector("#color");
+const colorSelect = document.querySelector('#color');
 //selects theme js or puns
-const designSelect = document.querySelector("#design");
+const designSelect = document.querySelector('#design');
 
-colorSelect.setAttribute("disabled", true);
+colorSelect.setAttribute('disabled', true);
 
-designSelect.addEventListener("change", (e) => {
-  colorSelect.removeAttribute("disabled", false);
+designSelect.addEventListener('change', (e) => {
+  colorSelect.removeAttribute('disabled', false);
 
   for (let i = 0; i < colorSelect.length; i++) {
     const targetVal = e.target.value;
-    const dataTheme = colorSelect.children[i].getAttribute("data-theme");
+    const dataTheme = colorSelect.children[i].getAttribute('data-theme');
 
     if (targetVal === dataTheme) {
       colorSelect[i].hidden = false;
@@ -42,39 +42,37 @@ designSelect.addEventListener("change", (e) => {
   }
 });
 
-let checkboxes = document.querySelector(".activities input");
+//Register for Activities
+let checkboxes = document.querySelector('.activities input');
 // Total: $
-const activityCost = document.querySelector(".activities-cost");
+const activityCost = document.querySelector('.activities-cost');
 //Register for activities aka fieldset
-const fieldset = document.querySelector(".activities");
+const fieldset = document.querySelector('.activities');
 let totalCost = 0;
 
-fieldset.addEventListener("change", (e) => {
-  let dataCost = e.target.getAttribute("data-cost");
-  let cost = parseInt(dataCost);
-
-  if (e.target.checked) {
-    activityCost.innerHTML = `Total: $${(totalCost += cost)}`;
-  } else {
-    activityCost.innerHTML = `Total: $${(totalCost -= cost)}`;
-  }
+fieldset.addEventListener('change', ({target, target: {checked}}) => {
+  let cost = parseInt(target.getAttribute("data-cost"));
+    activityCost.innerHTML = `Total: $${checked ? (totalCost += cost) : (totalCost -= cost)}`;
 });
 
 //payment info
-const payments = document.querySelectorAll(".payment-type");
-const paymentType = document.getElementsByTagName("div");
+const payments = document.querySelectorAll('.payment-type');
+const paymentType = document.getElementsByTagName('div');
+const paymentElement = document.getElementById('payment');
 let paymentOptions = payments;
 
-payments[1].hidden = true;
-payments[2].hidden = true;
-payment.children[1].setAttribute("selected", true);
+for (let i = 0; i < paymentOptions.length; i++) {
+  payments[i].hidden = i !== 0;
+  const paymentOptionValue = paymentElement.children[i].getAttribute('value');
+  if (paymentOptionValue === 'credit-card') {
+    payment[i].setAttribute('selected', true);
+  }
+}
 
-payment.addEventListener("change", (e) => {
-  let eventTarget = e.target.value;
-
+payment.addEventListener('change', ({ target: { value } }) => {
   for (let i = 0; i < paymentOptions.length; i++) {
-    paymentOptions[i].hidden = eventTarget !== paymentOptions[i].id;
+    paymentOptions[i].hidden = value !== paymentOptions[i].id;
   }
 });
-// (test)
 
+// Form Validation
