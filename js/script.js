@@ -151,10 +151,7 @@ formElement.addEventListener('submit', (e) => {
   console.log('submit button works');
 });
 
-//must contain a validly formatted email address => example: dave@teamtreehouse.com
-//A few characters for the username, followed by "@", followed by a few more characters and a ".com" for the domain name. You don’t have to account for other top-level domains, like .org, .net, etc.
 
-//must have at least one activity selected
 
 // If and only if credit card is the selected payment method:
 // "Card number" field must contain a 13 - 16 digit credit card number with no dashes or spaces. The value does not need to be a real credit card number.
