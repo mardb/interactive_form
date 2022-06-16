@@ -56,6 +56,13 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   activityCost.innerHTML = `Total: $${
     checked ? (totalCost += cost) : (totalCost -= cost)
   }`;
+  if (!totalCost > 0) {
+    fieldset.className = 'activities not-valid';
+    fieldset.lastElementChild.hide = false;
+  } else {
+    fieldset.className = 'activities valid';
+    fieldset.lastElementChild.hide = true;
+  }
 });
 
 //payment info
@@ -89,24 +96,39 @@ const cardNum = document.querySelector('#cc-num');
 const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv');
 
-console.log(activities);
+const validationPass = (element) => {
+  element.parentElement.className = 'valid';
+  element.parentElement.lastElementChild.hide = true;
+};
+
+const validationFail = (element) => {
+  element.parentElement.className = 'not-valid';
+  element.parentElement.lastElementChild.hidden = false;
+};
 
 const nameValidator = () => {
-  const nameValue = nameInput.value;
-  console.log(nameValue);
-  const nameIsValid = /^([a-zA-Z ]){2,30}$/.test(nameValue);
+  const nameIsValid = /^([a-zA-Z ]){2,30}$/.test(nameInput.value);
   console.log(
-    `Name validation test on "${nameValue}" evaluates to ${nameIsValid}`
+    `Name validation test on "${nameInput.value}" evaluates to ${nameIsValid}`
   );
+  if (nameIsValid) {
+    validationPass(nameInput);
+  } else {
+    validationFail(nameInput);
+  }
   return nameIsValid;
 };
 
 const emailValidator = () => {
-  const emailValue = email.value;
-  const emailIsValid = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(emailValue);
+  const emailIsValid = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email.value);
   console.log(
-    `Email validation test on "${emailValue}" evaluates to ${emailIsValid}`
+    `Email validation test on "${email.value}" evaluates to ${emailIsValid}`
   );
+  if (emailIsValid) {
+    validationPass(email);
+  } else {
+    validationFail(email);
+  }
   return emailIsValid;
 };
 
@@ -114,22 +136,53 @@ const registerValidator = () => {
   let activityIsValid = totalCost > 0;
   console.log(`registration validates to ${activityIsValid}`);
   return activityIsValid;
-
 };
 
 const creditCardValidator = () => {
-  const creditCardValue = cardNum.value;
   const ccIsValid =
-    /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(creditCardValue);
+    //stackoverflow
+    /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(
+      cardNum.value
+    );
+  if (ccIsValid) {
+    validationPass(cardNum);
+  } else {
+    validationFail(cardNum);
+  }
   console.log(
-    `cc validation test on "${creditCardValue}" evaluates to ${ccIsValid}`
+    `cc validation test on "${cardNum.value}" evaluates to ${ccIsValid}`
   );
   return ccIsValid;
 };
+const zipValidator = () => {
+  const zipIsValid = /(^\d{5}$)/.test(zip.value);
+  console.log(
+    `cc validation test on "${zip.value}" evaluates to ${zipIsValid}`
+  );
+  return zipIsValid;
+};
+
+const cvvValidator = () => {
+  const cvvIsValid = /(^\d{3}$)/.test(cvv.value);
+
+  console.log(
+    `cc validation test on "${cvv.value}" evaluates to ${cvvIsValid}`
+  );
+  if (cvvIsValid) {
+    validationPass(cvv);
+  } else {
+    validationFail(cvv);
+  }
+  return cvvIsValid;
+};
+nameInput.addEventListener('keyup', nameValidator);
+email.addEventListener('keyup', emailValidator);
+// activities.addEventListener('change', registerValidator)
 
 formElement.addEventListener('submit', (e) => {
   const invalid = e.preventDefault();
   // e.preventDefault();
+  // console.log(creditCardValidator());
   if (!nameValidator()) {
     invalid;
   }
@@ -139,28 +192,21 @@ formElement.addEventListener('submit', (e) => {
   if (!registerValidator()) {
     invalid;
   }
-  if(!creditCardValidator()){
-    invalid
+
+  if (paymentOptions === 'credit-card') {
+    if (!creditCardValidator()) {
+      invalid;
+    }
+    if (!zipValidator()) {
+      invalid;
+    }
+    if (!cvvValidator()) {
+      invalid;
+    }
   }
-//   if(paymentOptions === 'credit-card'){
-//     if(!creditCardValidator()) {  
-//       invalid;
-//   }
-// }
 
   console.log('submit button works');
 });
 
-
-
-// If and only if credit card is the selected payment method:
-// "Card number" field must contain a 13 - 16 digit credit card number with no dashes or spaces. The value does not need to be a real credit card number.
-// The "Zip code" field must contain a 5 digit number.
-// The "CVV" field must contain a 3 digit number.
-// console.log('submit event listener is firing')
-
-// console.log(formElement)
-// }
-// formValidation()
 
 /*Pro Tip:A recommended approach is to create helper functions for each of the required fields to be validated. For example, for the "Name" field, a function could check the "Name" field’s value. If it equals an empty string or only blank spaces, the function could log out a helpful statement and return false. Otherwise it would return true. And then in the `submit` event listener, you could call that helper function and check what it returns: if it returns false, you would prevent the form from submitting. Otherwise, you would avoid preventing form submission, and allow the `submit` handler to either submit or move onto checking the next required field. */
