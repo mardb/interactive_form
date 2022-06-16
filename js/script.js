@@ -56,6 +56,7 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   activityCost.innerHTML = `Total: $${
     checked ? (totalCost += cost) : (totalCost -= cost)
   }`;
+  //validates fieldset for activities in real time
   if (!totalCost > 0) {
     fieldset.className = 'activities not-valid';
     fieldset.lastElementChild.hide = false;
@@ -140,7 +141,7 @@ const registerValidator = () => {
 
 const creditCardValidator = () => {
   const ccIsValid =
-    //stackoverflow
+    //regex from stack overflow - validates all cards
     /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(
       cardNum.value
     );
@@ -154,11 +155,17 @@ const creditCardValidator = () => {
   );
   return ccIsValid;
 };
+
 const zipValidator = () => {
   const zipIsValid = /(^\d{5}$)/.test(zip.value);
   console.log(
     `cc validation test on "${zip.value}" evaluates to ${zipIsValid}`
   );
+  if (zipIsValid) {
+    validationPass(zip);
+  } else {
+    validationFail(zip);
+  }
   return zipIsValid;
 };
 
@@ -178,6 +185,8 @@ const cvvValidator = () => {
 nameInput.addEventListener('keyup', nameValidator);
 email.addEventListener('keyup', emailValidator);
 // activities.addEventListener('change', registerValidator)
+zip.addEventListener('keyup', zipValidator);
+cvv.addEventListener('keyup', cvvValidator);
 
 formElement.addEventListener('submit', (e) => {
   const invalid = e.preventDefault();
@@ -207,6 +216,5 @@ formElement.addEventListener('submit', (e) => {
 
   console.log('submit button works');
 });
-
 
 /*Pro Tip:A recommended approach is to create helper functions for each of the required fields to be validated. For example, for the "Name" field, a function could check the "Name" field’s value. If it equals an empty string or only blank spaces, the function could log out a helpful statement and return false. Otherwise it would return true. And then in the `submit` event listener, you could call that helper function and check what it returns: if it returns false, you would prevent the form from submitting. Otherwise, you would avoid preventing form submission, and allow the `submit` handler to either submit or move onto checking the next required field. */
