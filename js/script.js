@@ -45,6 +45,7 @@ designSelect.addEventListener('change', (e) => {
 
 //Register for Activities
 let checkboxes = document.querySelector('.activities input');
+
 // Total: $
 const activityCost = document.querySelector('.activities-cost');
 //Register for activities aka fieldset
@@ -53,16 +54,23 @@ let totalCost = 0;
 
 fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   let cost = parseInt(target.getAttribute('data-cost'));
+  
+
   activityCost.innerHTML = `Total: $${
     checked ? (totalCost += cost) : (totalCost -= cost)
   }`;
+  //greys out if times conflict
+  for(let i = 0; i <activities.length; i++){
+    console.log(fieldset[i])
+  }
   //validates fieldset for activities in real time
   if (!totalCost > 0) {
     fieldset.className = 'activities not-valid';
-    fieldset.lastElementChild.hide = false;
+    fieldset.lastElementChild.style.display = 'block';
   } else {
     fieldset.className = 'activities valid';
-    fieldset.lastElementChild.hide = true;
+    fieldset.lastElementChild.style.display = 'none';
+    // console.log(fieldset.lastElementChild);
   }
 });
 
@@ -99,19 +107,16 @@ const cvv = document.querySelector('#cvv');
 
 const validationPass = (element) => {
   element.parentElement.className = 'valid';
-  element.parentElement.lastElementChild.hide = true;
+  element.parentElement.lastElementChild.style.display = 'none';
 };
 
 const validationFail = (element) => {
   element.parentElement.className = 'not-valid';
-  element.parentElement.lastElementChild.hidden = false;
+  element.parentElement.lastElementChild.style.display = 'block';
 };
 
 const nameValidator = () => {
   const nameIsValid = /^([a-zA-Z ]){2,30}$/.test(nameInput.value);
-  console.log(
-    `Name validation test on "${nameInput.value}" evaluates to ${nameIsValid}`
-  );
   if (nameIsValid) {
     validationPass(nameInput);
   } else {
@@ -122,9 +127,6 @@ const nameValidator = () => {
 
 const emailValidator = () => {
   const emailIsValid = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email.value);
-  console.log(
-    `Email validation test on "${email.value}" evaluates to ${emailIsValid}`
-  );
   if (emailIsValid) {
     validationPass(email);
   } else {
@@ -135,7 +137,13 @@ const emailValidator = () => {
 
 const registerValidator = () => {
   let activityIsValid = totalCost > 0;
-  console.log(`registration validates to ${activityIsValid}`);
+  if (!totalCost > 0) {
+    fieldset.className = 'activities not-valid';
+    fieldset.lastElementChild.style.display = 'block';
+  } else {
+    fieldset.className = 'activities valid';
+    fieldset.lastElementChild.style.display = 'none';
+  }
   return activityIsValid;
 };
 
@@ -145,6 +153,7 @@ const creditCardValidator = () => {
     /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(
       cardNum.value
     );
+    console.log('hi from cc validator',ccIsValid)
   if (ccIsValid) {
     validationPass(cardNum);
   } else {
@@ -182,15 +191,15 @@ const cvvValidator = () => {
   }
   return cvvIsValid;
 };
-// event listener that runs helper functions when key is pressed
-cardNum.addEventListener('keyup', creditCardValidator);
-cvv.addEventListener('keyup', cvvValidator);
-email.addEventListener('keyup', emailValidator);
 nameInput.addEventListener('keyup', nameValidator);
+email.addEventListener('keyup', emailValidator);
+// activities.addEventListener('change', registerValidator)
 zip.addEventListener('keyup', zipValidator);
-
+cvv.addEventListener('keyup', cvvValidator);
+cardNum.addEventListener('keyup', creditCardValidator);
 
 formElement.addEventListener('submit', (e) => {
+
   if (!nameValidator()) {
     e.preventDefault();
   }
@@ -200,16 +209,22 @@ formElement.addEventListener('submit', (e) => {
   if (!registerValidator()) {
     e.preventDefault();
   }
-  if (paymentOptions === 'credit-card') {
-    if (!creditCardValidator()) {
-      e.preventDefault();
-    }
-    if (!zipValidator()) {
-      e.preventDefault();
-    }
-    if (!cvvValidator()) {
-      e.preventDefault();
-    }
+
+  if (paymentElement.value === 'credit-card') {
+      console.log('inside conditional!!!')
+      e.preventDefault()
+      console.log(creditCardValidator)
+    // if (!creditCardValidator) {
+    //   console.log('hi from event listeners CCValidtaor')
+    //   e.preventDefault();
+    // }
+
+    // if (!zipValidator) {
+    //   e.preventDefault();
+    // }
+    // if (!cvvValidator) {
+    //   e.preventDefault();
+    // }
   }
 
   console.log('submit button works');
