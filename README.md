@@ -17,3 +17,6 @@ I will be adding JavaScript to **HTML** and **CSS** files to make the form user-
 - Considers the needs of users with disabilities.
 - Compatible with assistive technology recognition compatibility (e.g. screen readers, etc.)
 # interactive_form
+
+# Real-time error message
+Provides form validation error indications at the moment they occur to better serve user. When then user interaction occurs,the validation checks for that input.

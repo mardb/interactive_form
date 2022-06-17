@@ -211,20 +211,16 @@ formElement.addEventListener('submit', (e) => {
   }
 
   if (paymentElement.value === 'credit-card') {
-      console.log('inside conditional!!!')
-      e.preventDefault()
-      console.log(creditCardValidator)
-    // if (!creditCardValidator) {
-    //   console.log('hi from event listeners CCValidtaor')
-    //   e.preventDefault();
-    // }
+    if (!creditCardValidator()) {
+      e.preventDefault();
+    }
 
-    // if (!zipValidator) {
-    //   e.preventDefault();
-    // }
-    // if (!cvvValidator) {
-    //   e.preventDefault();
-    // }
+    if (!zipValidator()) {
+      e.preventDefault();
+    }
+    if (!cvvValidator()) {
+      e.preventDefault();
+    }
   }
 
   console.log('submit button works');
