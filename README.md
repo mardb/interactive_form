@@ -13,9 +13,11 @@ I will be adding JavaScript to **HTML** and **CSS** files to make the form user-
 ### Accessibility
 
 - This website aims to be accessible to all users-
-- To be in compliance with web regulations.
+- Is in compliance with web regulations.
 - Considers the needs of users with disabilities.
 - Compatible with assistive technology recognition compatibility (e.g. screen readers, etc.)
+- focus states of activities and form validation errors are highlighted in a way that makes it obvious for all users. 
+
 # interactive_form
 
 # Real-time error message

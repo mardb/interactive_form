@@ -9,14 +9,10 @@ const jobRole = document.querySelector('#other-job-role');
 const jobSelect = document.querySelector('#title');
 
 jobRole.style.display = 'none';
-jobSelect.addEventListener('change', (e) => {
-  console.log(designSelect.value);
-  if (e.target.value === 'other') {
-    jobRole.style.display = 'block';
-  } else {
-    jobRole.style.display = 'none';
-  }
+jobSelect.addEventListener('change', ({target:{value}}) => {
+  jobRole.style.display = value === 'other'? "block": 'none';
 });
+
 //T-shirt info
 //selects colors of shirts
 const colorSelect = document.querySelector('#color');
@@ -59,9 +55,11 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   activityCost.innerHTML = `Total: $${
     checked ? (totalCost += cost) : (totalCost -= cost)
   }`;
+  // console.log(activities.getAttribute('data-day-and-time'))
   //greys out if times conflict
   for(let i = 0; i <activities.length; i++){
-    console.log(fieldset[i])
+    console.log(activities[i])
+      // .getAttribute('data-day-and-time'))
   }
   //validates fieldset for activities in real time
   if (!totalCost > 0) {
