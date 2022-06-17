@@ -182,39 +182,35 @@ const cvvValidator = () => {
   }
   return cvvIsValid;
 };
-nameInput.addEventListener('keyup', nameValidator);
-email.addEventListener('keyup', emailValidator);
-// activities.addEventListener('change', registerValidator)
-zip.addEventListener('keyup', zipValidator);
+// event listener that runs helper functions when key is pressed
+cardNum.addEventListener('keyup', creditCardValidator);
 cvv.addEventListener('keyup', cvvValidator);
+email.addEventListener('keyup', emailValidator);
+nameInput.addEventListener('keyup', nameValidator);
+zip.addEventListener('keyup', zipValidator);
+
 
 formElement.addEventListener('submit', (e) => {
-  const invalid = e.preventDefault();
-  // e.preventDefault();
-  // console.log(creditCardValidator());
   if (!nameValidator()) {
-    invalid;
+    e.preventDefault();
   }
   if (!emailValidator()) {
-    invalid;
+    e.preventDefault();
   }
   if (!registerValidator()) {
-    invalid;
+    e.preventDefault();
   }
-
   if (paymentOptions === 'credit-card') {
     if (!creditCardValidator()) {
-      invalid;
+      e.preventDefault();
     }
     if (!zipValidator()) {
-      invalid;
+      e.preventDefault();
     }
     if (!cvvValidator()) {
-      invalid;
+      e.preventDefault();
     }
   }
 
   console.log('submit button works');
 });
-
-/*Pro Tip:A recommended approach is to create helper functions for each of the required fields to be validated. For example, for the "Name" field, a function could check the "Name" field’s value. If it equals an empty string or only blank spaces, the function could log out a helpful statement and return false. Otherwise it would return true. And then in the `submit` event listener, you could call that helper function and check what it returns: if it returns false, you would prevent the form from submitting. Otherwise, you would avoid preventing form submission, and allow the `submit` handler to either submit or move onto checking the next required field. */
