@@ -36,6 +36,9 @@ let checkboxes = document.querySelector('.activities input');
 const activityCost = document.querySelector('.activities-cost');
 //Register for activities aka fieldset
 const fieldset = document.querySelector('.activities');
+let dayAndTime = document.querySelectorAll(
+  '#activities-box input[type=checkbox]'
+);
 let totalCost = 0;
 
 fieldset.addEventListener('change', ({ target, target: { checked } }) => {
@@ -44,11 +47,31 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
     checked ? (totalCost += cost) : (totalCost -= cost)
   }`;
 
-  // console.log(activities.getAttribute('data-day-and-time'))
   //greys out if times conflict
-  for (let i = 0; i < activities.length; i++) {
-    console.log(activities[i]);
-    // .getAttribute('data-day-and-time'))
+
+  for (let i = 0; i < dayAndTime.length; i++) {
+    if (
+      target.getAttribute('data-day-and-time') ===
+        dayAndTime[i].getAttribute('data-day-and-time') &&
+      checked
+    ) {
+      dayAndTime[i].disabled = true;
+      target.removeAttribute('disabled');
+    } else if (
+      target.getAttribute('data-day-and-time') !==
+        dayAndTime[i].getAttribute('data-day-and-time') &&
+      !dayAndTime[i].disabled
+    ) {
+      dayAndTime[i].removeAttribute('disabled');
+      target.enabled = true;
+    } else if (
+      target.getAttribute('data-day-and-time') ===
+        dayAndTime[i].getAttribute('data-day-and-time') &&
+      !target.checked
+    ) {
+      dayAndTime[i].disabled = false;
+      target.enabled = false;
+    }
   }
   //validates fieldset for activities in real time
   if (!totalCost > 0) {
@@ -101,7 +124,7 @@ const validationFail = (element) => {
 };
 
 const nameValidator = () => {
-  const nameIsValid = /^([a-zA-Z ]){2,30}$/.test(nameInput.value);
+  const nameIsValid = /^([\w\d]){2,30}$/.test(nameInput.value);
   nameIsValid ? validationPass(nameInput) : validationFail(nameInput);
   return nameIsValid;
 };
