@@ -1,11 +1,11 @@
 //Use the .focus() method on the <input type="text"> element for the "Name" field.
 //Name Field
-let nameInput = document.querySelector('#name');
 const jobRole = document.querySelector('#other-job-role');
 const jobSelect = document.querySelector('#title');
 const colorSelect = document.querySelector('#color');
 const designSelect = document.querySelector('#design');
 
+let nameInput = document.querySelector('#name');
 nameInput.focus();
 
 //Job Role
@@ -31,14 +31,11 @@ designSelect.addEventListener('change', (e) => {
 });
 
 //Register for Activities
-let checkboxes = document.querySelector('.activities input');
-// Total: $
 const activityCost = document.querySelector('.activities-cost');
-//Register for activities aka fieldset
 const fieldset = document.querySelector('.activities');
-let dayAndTime = document.querySelectorAll(
-  '#activities-box input[type=checkbox]'
-);
+
+let checkboxes = document.querySelector('.activities input');
+let dayAndTime = document.querySelectorAll('#activities-box input[type=checkbox]');
 let totalCost = 0;
 
 fieldset.addEventListener('change', ({ target, target: { checked } }) => {
@@ -80,14 +77,13 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   } else {
     fieldset.className = 'activities valid';
     fieldset.lastElementChild.style.display = 'none';
-    // console.log(fieldset.lastElementChild);
   }
 });
 
 //payment info
 const payments = document.querySelectorAll('.payment-type');
-//important payment
 const paymentElement = document.getElementById('payment');
+
 let paymentOptions = payments;
 //hides credit card
 for (let i = 0; i < paymentOptions.length; i++) {
@@ -105,12 +101,10 @@ paymentElement.addEventListener('change', ({ target: { value } }) => {
 });
 
 const activities = document.querySelector('#activities-box');
-// console.log(activities.isChecked)
 const cardNum = document.querySelector('#cc-num');
-const cvv = document.querySelector('#cvv');
+const cvvNum = document.querySelector('#cvv');
 const email = document.querySelector('#email');
 const formElement = document.querySelector('form');
-// const name = document.querySelector("#name");//declared above
 const zip = document.querySelector('#zip');
 
 const validationPass = (element) => {
@@ -124,7 +118,7 @@ const validationFail = (element) => {
 };
 
 const nameValidator = () => {
-  const nameIsValid = /^([\w\d]){2,30}$/.test(nameInput.value);
+  const nameIsValid = /^([\x00-\xFF]){2,30}$/.test(nameInput.value);
   nameIsValid ? validationPass(nameInput) : validationFail(nameInput);
   return nameIsValid;
 };
@@ -148,9 +142,7 @@ const registerValidator = () => {
 const creditCardValidator = () => {
   const ccIsValid =
     //regex from stack overflow - validates all cards
-    /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(
-      cardNum.value
-    );
+    /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(cardNum.value);
   ccIsValid ? validationPass(cardNum) : validationFail(cardNum);
   return ccIsValid;
 };
@@ -162,14 +154,14 @@ const zipValidator = () => {
 };
 
 const cvvValidator = () => {
-  const cvvIsValid = /(^\d{3}$)/.test(cvv.value);
-  cvvIsValid ? validationPass(cvv) : validationFail(cvv);
+  const cvvIsValid = /(^\d{3}$)/.test(cvvNum.value);
+  cvvIsValid ? validationPass(cvvNum) : validationFail(cvvNum);
   return cvvIsValid;
 };
 
 // activities.addEventListener('change', registerValidator)
 cardNum.addEventListener('keyup', creditCardValidator);
-cvv.addEventListener('keyup', cvvValidator);
+cvvNum.addEventListener('keyup', cvvValidator);
 email.addEventListener('keyup', emailValidator);
 nameInput.addEventListener('keyup', nameValidator);
 zip.addEventListener('keyup', zipValidator);
@@ -184,6 +176,4 @@ formElement.addEventListener('submit', (e) => {
     !zipValidator() && e.preventDefault();
     !cvvValidator() && e.preventDefault();
   }
-
-  console.log('submit button works');
 });
