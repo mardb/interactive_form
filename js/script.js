@@ -32,9 +32,7 @@ colorSelect.removeAttribute('disabled', false);
 //Register for Activities
 const activityCost = document.querySelector('.activities-cost');
 const fieldset = document.querySelector('.activities');
-console.log(fieldset)
 let checkboxes = document.querySelectorAll('.activities input');
-console.log(checkboxes)
 let dayAndTime = document.querySelectorAll('#activities-box input[type=checkbox]');
 let totalCost = 0;
 
@@ -82,20 +80,15 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   }
 });
 
-
-// .classList.remove('focus')
-// const blur = focusSelector.classList.remove()
-// const focus = checkboxes.parentElement.classList = 'focus'
-// const blur = checkbox.parentElement.classList = 'blur'
 checkboxes.forEach(checkbox =>  {
-
-  checkbox.addEventListener('focus', () => checkbox.parentElement.classList = 'focus') &&
-  checkbox.addEventListener('blur', () => {
+  checkbox.addEventListener('blur', (e) => 
+  checkbox.parentElement.classList.add('focus')
+  )
+  checkbox.addEventListener('focus', () => { 
     const focusSelector = document.querySelector('.focus')
-    console.log(focusSelector)
+  
     if(focusSelector){
-    focusSelector.classList.remove('focus') 
-    checkbox.parentElement.classList.remove('focus') 
+    focusSelector.classList.remove('focus')  
     }
   })
 });
