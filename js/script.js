@@ -13,42 +13,25 @@ jobSelect.addEventListener('change', ({ target: { value } }) => {
 //T-shirt info
 const colorSelect = document.querySelector('#color');
 const designSelect = document.querySelector('#design');
+// shirt color dropdown is disabled until shirt design is chosen the the first color of each option will appear as default
 colorSelect.setAttribute('disabled', true);
-//------------------------------------------
-// designSelect.addEventListener('change', (e) => {
-//   colorSelect.removeAttribute('disabled', false);
-
-//   for (let i = 0; i < colorSelect.length; i++) {
-//     const targetVal = e.target.value;
-//     const dataTheme = colorSelect.children[i].getAttribute('data-theme');
-
-//     targetVal === dataTheme
-//       ? (colorSelect[i].hidden = false) && (colorSelect[i].selected = true)
-//       : (colorSelect[i].hidden = true) && (colorSelect[i].selected = false);
-//   }
-// });
-
-//------------------
-// colorSelect.setAttribute("disabled", true);
-
-designSelect.addEventListener("change", (e) => {
-  colorSelect.removeAttribute("disabled", false);
+designSelect.addEventListener('change', (e) => {
+  colorSelect.removeAttribute('disabled', false);
 
   for (let i = colorSelect.length -1 ; i >= 0; i--) {
     const targetVal = e.target.value;
-    const dataTheme = colorSelect.children[i].getAttribute("data-theme");
+    const dataTheme = colorSelect.children[i].getAttribute('data-theme');
 
-    if (targetVal === dataTheme) {
-        colorSelect[i].hidden = false;
-        colorSelect[i].selected = true;
+    if(targetVal === dataTheme){
+      colorSelect[i].hidden = false
+      colorSelect[i].selected = true
     }
-    if (targetVal != dataTheme) {
-        colorSelect[i].hidden = true;
-        colorSelect[i].selected = false;
+  if(targetVal !== dataTheme){
+    colorSelect[i].hidden = true
+    colorSelect[i].selected = false
     }
   }
 });
-//-------------------
 
 //Register for Activities
 const activityCost = document.querySelector('.activities-cost');
