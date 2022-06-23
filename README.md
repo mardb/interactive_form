@@ -19,7 +19,7 @@ I will be adding JavaScript to **HTML** and **CSS** files to make the form user-
 - focus states of activities and form validation errors are highlighted in a way that makes it obvious for all users. 
 
 # Please Note:
--  For credit card number validation, i am validating for Visa credit card that is 13-16 digits long. Visa cards start with the number 4. Please keep this in mind when testing the form. Use 4 as the first digit.
+-  For credit card number validation, I am validating for a Visa credit card that is 13-16 digits long. Visa cards start with the number 4. Please keep this in mind when testing the form. Use 4 as the first digit.
 # interactive_form
 
 # Real-time error message
