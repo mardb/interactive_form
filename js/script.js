@@ -14,18 +14,41 @@ jobSelect.addEventListener('change', ({ target: { value } }) => {
 const colorSelect = document.querySelector('#color');
 const designSelect = document.querySelector('#design');
 colorSelect.setAttribute('disabled', true);
-designSelect.addEventListener('change', (e) => {
-  colorSelect.removeAttribute('disabled', false);
+//------------------------------------------
+// designSelect.addEventListener('change', (e) => {
+//   colorSelect.removeAttribute('disabled', false);
 
-  for (let i = 0; i < colorSelect.length; i++) {
+//   for (let i = 0; i < colorSelect.length; i++) {
+//     const targetVal = e.target.value;
+//     const dataTheme = colorSelect.children[i].getAttribute('data-theme');
+
+//     targetVal === dataTheme
+//       ? (colorSelect[i].hidden = false) && (colorSelect[i].selected = true)
+//       : (colorSelect[i].hidden = true) && (colorSelect[i].selected = false);
+//   }
+// });
+
+//------------------
+// colorSelect.setAttribute("disabled", true);
+
+designSelect.addEventListener("change", (e) => {
+  colorSelect.removeAttribute("disabled", false);
+
+  for (let i = colorSelect.length -1 ; i >= 0; i--) {
     const targetVal = e.target.value;
-    const dataTheme = colorSelect.children[i].getAttribute('data-theme');
+    const dataTheme = colorSelect.children[i].getAttribute("data-theme");
 
-    targetVal === dataTheme
-      ? (colorSelect[i].hidden = false) && (colorSelect[i].selected = true)
-      : (colorSelect[i].hidden = true) && (colorSelect[i].selected = false);
+    if (targetVal === dataTheme) {
+        colorSelect[i].hidden = false;
+        colorSelect[i].selected = true;
+    }
+    if (targetVal != dataTheme) {
+        colorSelect[i].hidden = true;
+        colorSelect[i].selected = false;
+    }
   }
 });
+//-------------------
 
 //Register for Activities
 const activityCost = document.querySelector('.activities-cost');
@@ -79,15 +102,12 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
 });
 
 //accessibility - obvious focus state indicators for activities have when tabbing through the form's inputs.
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener('blur', () => checkbox.parentElement.classList.add('focus'));
-  checkbox.addEventListener('focus', () => {
-    const focusSelector = document.querySelector('.focus');
-    if (focusSelector) {
-      focusSelector.classList.remove('focus');
-    }
-  });
-});
+// checkboxes.forEach((checkbox) => {
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('focus', () => checkboxes[i].parentElement.classList = 'focus');
+    checkboxes[i].addEventListener('blur', () => checkboxes[i].parentElement.classList.remove('focus'))
+  }
+ 
 
 //payment info
 const payments = document.querySelectorAll('.payment-type');
@@ -127,7 +147,7 @@ const validationFail = (element) => {
 };
 // checks if name is valid. at least 2 chars long with special characters and digits
 const nameValidator = () => {
-  const nameIsValid = /^([\x00-\xFF]){2,30}$/.test(nameInput.value);
+  const nameIsValid = /^([\x00-\xFF]){1,30}$/.test(nameInput.value);
   nameIsValid ? validationPass(nameInput) : validationFail(nameInput);
   return nameIsValid;
 };
