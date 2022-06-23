@@ -1,11 +1,10 @@
-
 const jobRole = document.querySelector('#other-job-role');
 const jobSelect = document.querySelector('#title');
 
 let nameInput = document.querySelector('#name');
 nameInput.focus();
 
-//Job Role 
+//Job Role
 jobRole.style.display = 'none';
 jobSelect.addEventListener('change', ({ target: { value } }) => {
   jobRole.style.display = value === 'other' ? 'block' : 'none';
@@ -16,7 +15,7 @@ const colorSelect = document.querySelector('#color');
 const designSelect = document.querySelector('#design');
 colorSelect.setAttribute('disabled', true);
 designSelect.addEventListener('change', (e) => {
-colorSelect.removeAttribute('disabled', false);
+  colorSelect.removeAttribute('disabled', false);
 
   for (let i = 0; i < colorSelect.length; i++) {
     const targetVal = e.target.value;
@@ -28,15 +27,14 @@ colorSelect.removeAttribute('disabled', false);
   }
 });
 
-
 //Register for Activities
 const activityCost = document.querySelector('.activities-cost');
 const fieldset = document.querySelector('.activities');
 let checkboxes = document.querySelectorAll('.activities input');
-let dayAndTime = document.querySelectorAll('#activities-box input[type=checkbox]');
+let dayAndTime = document.querySelectorAll(
+  '#activities-box input[type=checkbox]'
+);
 let totalCost = 0;
-
-
 
 fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   let cost = parseInt(target.getAttribute('data-cost'));
@@ -80,20 +78,16 @@ fieldset.addEventListener('change', ({ target, target: { checked } }) => {
   }
 });
 
-checkboxes.forEach(checkbox =>  {
-  checkbox.addEventListener('blur', (e) => 
-  checkbox.parentElement.classList.add('focus')
-  )
-  checkbox.addEventListener('focus', () => { 
-    const focusSelector = document.querySelector('.focus')
-  
-    if(focusSelector){
-    focusSelector.classList.remove('focus')  
+//accessibility - obvious focus state indicators for activities have when tabbing through the form's inputs.
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener('blur', () => checkbox.parentElement.classList.add('focus'));
+  checkbox.addEventListener('focus', () => {
+    const focusSelector = document.querySelector('.focus');
+    if (focusSelector) {
+      focusSelector.classList.remove('focus');
     }
-  })
+  });
 });
-
-
 
 //payment info
 const payments = document.querySelectorAll('.payment-type');
@@ -143,7 +137,7 @@ const emailValidator = () => {
   emailIsValid ? validationPass(email) : validationFail(email);
   return emailIsValid;
 };
-//checks to see if the user has selected a checkbox in activities section. 
+//checks to see if the user has selected a checkbox in activities section.
 const registerValidator = () => {
   let activityIsValid = totalCost > 0;
   !totalCost > 0
@@ -157,7 +151,9 @@ const registerValidator = () => {
 const creditCardValidator = () => {
   const ccIsValid =
     //regex from stack overflow - validates for Visa cards starting with the number 4 since visa cards start with 4. 13-16 digits long
-    /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(cardNum.value);
+    /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(
+      cardNum.value
+    );
   ccIsValid ? validationPass(cardNum) : validationFail(cardNum);
   return ccIsValid;
 };
@@ -180,12 +176,12 @@ cvvNum.addEventListener('keyup', cvvValidator);
 email.addEventListener('keyup', emailValidator);
 nameInput.addEventListener('keyup', nameValidator);
 zip.addEventListener('keyup', zipValidator);
-//if all fields are filled correctly, list submit handler will allow the page to refresh. 
+//if all fields are filled correctly, list submit handler will allow the page to refresh.
 formElement.addEventListener('submit', (e) => {
   !nameValidator() && e.preventDefault();
   !emailValidator() && e.preventDefault();
   !registerValidator() && e.preventDefault();
-//checks if credit card is chosen and it allows the cvv field and zip field to appear, else, hides those fields and allows person to click the register button. 
+  //checks if credit card is chosen and it allows the cvv field and zip field to appear, else, hides those fields and allows person to click the register button.
   if (paymentElement.value === 'credit-card') {
     !creditCardValidator() && e.preventDefault();
     !zipValidator() && e.preventDefault();
